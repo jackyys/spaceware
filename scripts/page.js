@@ -63,6 +63,11 @@ let shieldGeneratedInterval;
 let portalGeneratedInterval;
 let scoreInterval;
 
+// Audios
+let DIE = new Audio("src/audio/die.mp3");
+let PEW = new Audio("src/audio/pew.mp3");
+let COLLECT = new Audio("src/audio/collect.mp3");
+
 // slider.on('input', function() {
 //   currentVolume = this.value;
 //   $("#demo").html(this.value);
@@ -192,6 +197,8 @@ function portalAppear() {
   var portalInterval = setInterval(function() {
     if (isColliding(rocket.id, portal)) {
       portal.remove();
+      COLLECT.volume = slider[0].value / 100.0;
+      COLLECT.play();
       clearInterval(portalInterval);
       level_count++;
       danger += 2;
@@ -221,6 +228,8 @@ function shieldAppear() {
       rocket.shield = true;
       rocket.img.attr("src", "src/player_shielded.gif");
       shield.remove();
+      COLLECT.volume = slider[0].value / 100.0;
+      COLLECT.play();
       clearInterval(shieldInterval);
     }
   }, 50);
@@ -504,6 +513,8 @@ function spawn_helper(asteroid) {
     if (isColliding(rocket.id, asteroid.id)) {
       if (!rocket.shield) {
         rocket.img.attr("src", "src/player_touched.gif");
+        DIE.volume = slider[0].value / 100.0;
+        DIE.play();
         game_over();
       } else {
         rocket.shield = false;
