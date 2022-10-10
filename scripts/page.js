@@ -62,6 +62,7 @@ let spawnInterval;
 let shieldGeneratedInterval;
 let portalGeneratedInterval;
 let scoreInterval;
+let AstIntervals = new Set();
 
 // Audios
 // let DIE = new Audio("src/audio/die.mp3");
@@ -155,6 +156,7 @@ function playGame() {
 }
 
 function startGame() {
+  onScreenAsteroid = $('.curAstroid');
   $("#collect").hide();
   $("#die").hide();
   $("#tutorial_page").hide();
@@ -269,12 +271,12 @@ function game_over() {
   $('.asteroidSection').hide();
   $("#over_page").show();
   $("#final_score").html(score);
-  clearInterval(spawnInterval);
-  clearInterval(rocketInterval);
-  clearInterval(shieldGeneratedInterval);
-  clearInterval(portalGeneratedInterval);
-  clearInterval(scoreInterval);
   rocket.id.remove();
+  console.log($(".asteroidSection").html());
+  onScreenAsteroid.remove();
+  console.log($(".asteroidSection").html());
+  $(".asteroidSection").append("<div class='curAstroid'> </div>");
+  console.log($(".asteroidSection").html());
   score = 0;
   level_count = 1;
   danger = danger_dict[Difficulty];
@@ -372,6 +374,7 @@ class Asteroid {
       onScreenAsteroid.append(objectString);
       // select id of this Asteroid
       this.id = $('#a-' + currentAsteroid);
+      console.log(this.id);
       currentAsteroid++; // ensure each Asteroid has its own id
       // current x, y position of this Asteroid
       this.cur_x = 0; // number of pixels from right
@@ -523,27 +526,37 @@ function spawn_helper(asteroid) {
     asteroid.updatePosition();
     if (isColliding(rocket.id, asteroid.id)) {
       if (!rocket.shield) {
-        rocket.img.attr("src", "src/player_touched.gif");
+        rocket.img.attr("src", "src/player/player_touched.gif");
         // DIE.volume = slider[0].value / 100.0;
         // DIE.play();
         $('#die').prop("volume", slider[0].value / 100.0);
         // COLLECT.volume = slider[0].value / 100.0;
         $('#die')[0].play();
-        setTimeout(game_over(), 2000);
+        AstIntervals.forEach(key => clearInterval(key));
+        AstIntervals = new Set();
+        clearInterval(spawnInterval);
+        clearInterval(rocketInterval);
+        clearInterval(shieldGeneratedInterval);
+        clearInterval(portalGeneratedInterval);
+        clearInterval(scoreInterval);
+        setTimeout(game_over, 2000);
         // game_over();
       } else {
         rocket.shield = false;
         rocket.img.attr("src", "src/player.gif");
         asteroid.id.remove();
+        AstIntervals.delete(astermovement);
         clearInterval(astermovement);
       }
     }
     // determine whether asteroid has reached its end position, i.e., outside the game border
     if (asteroid.hasReachedEnd()) {
       asteroid.id.remove();
+      AstIntervals.delete(astermovement);
       clearInterval(astermovement);
     }
   }, AST_OBJECT_REFRESH_RATE);
+  AstIntervals.add(astermovement);
 }
 
 //===================================================
