@@ -64,9 +64,9 @@ let portalGeneratedInterval;
 let scoreInterval;
 
 // Audios
-let DIE = new Audio("src/audio/die.mp3");
-let PEW = new Audio("src/audio/pew.mp3");
-let COLLECT = new Audio("src/audio/collect.mp3");
+// let DIE = new Audio("src/audio/die.mp3");
+// let PEW = new Audio("src/audio/pew.mp3");
+// let COLLECT = new Audio("src/audio/collect.mp3");
 
 // slider.on('input', function() {
 //   currentVolume = this.value;
@@ -155,6 +155,8 @@ function playGame() {
 }
 
 function startGame() {
+  $("#collect").hide();
+  $("#die").hide();
   $("#tutorial_page").hide();
   $("#get_ready_window").show();
   $('#landing_page').hide();
@@ -197,8 +199,9 @@ function portalAppear() {
   var portalInterval = setInterval(function() {
     if (isColliding(rocket.id, portal)) {
       portal.remove();
-      COLLECT.volume = slider[0].value / 100.0;
-      COLLECT.play();
+      $('#collect').prop("volume", slider[0].value / 100.0);
+      // COLLECT.volume = slider[0].value / 100.0;
+      $('#collect')[0].play();
       clearInterval(portalInterval);
       level_count++;
       danger += 2;
@@ -228,8 +231,11 @@ function shieldAppear() {
       rocket.shield = true;
       rocket.img.attr("src", "src/player_shielded.gif");
       shield.remove();
-      COLLECT.volume = slider[0].value / 100.0;
-      COLLECT.play();
+      // COLLECT.volume = slider[0].value / 100.0;
+      // COLLECT.play();
+      $('#collect').prop("volume", slider[0].value / 100.0);
+      // COLLECT.volume = slider[0].value / 100.0;
+      $('#collect')[0].play();
       clearInterval(shieldInterval);
     }
   }, 50);
@@ -274,6 +280,7 @@ function game_over() {
   danger = danger_dict[Difficulty];
   $("#level_num").html(level_count);
   $("#danger_num").html(danger);
+  $("#score_num").html(score);
 }
 
 // Starter Code for randomly generating and moving an asteroid on screen
@@ -316,28 +323,32 @@ function moveRocket() {
     } else {
       rocket.img.attr('src', "src/player/player_left.gif");
     }
-  } else if (RIGHT) {
+  }
+  if (RIGHT) {
     rocket.next_x = rocket.cur_x - rocket_speed;
     if (rocket.shield) {
       rocket.img.attr('src', "src/player/player_shielded_right.gif");
     } else {
       rocket.img.attr('src', "src/player/player_right.gif");
     }
-  } else if (DOWN) {
+  }
+  if (DOWN) {
     rocket.next_y = rocket.cur_y + rocket_speed;
     if (rocket.shield) {
       rocket.img.attr('src', "src/player/player_shielded_down.gif");
     } else {
       rocket.img.attr('src', "src/player/player_down.gif");
     }
-  } else if (UP) {
+  }
+  if (UP) {
     rocket.next_y = rocket.cur_y - rocket_speed;
     if (rocket.shield) {
       rocket.img.attr('src', "src/player/player_shielded_up.gif");
     } else {
       rocket.img.attr('src', "src/player/player_up.gif");
     }
-  } else {
+  } 
+  if (!LEFT && !RIGHT && !DOWN && !UP) {
     if (rocket.shield) {
       rocket.img.attr('src', "src/player/player_shielded.gif");
     } else {
@@ -513,9 +524,13 @@ function spawn_helper(asteroid) {
     if (isColliding(rocket.id, asteroid.id)) {
       if (!rocket.shield) {
         rocket.img.attr("src", "src/player_touched.gif");
-        DIE.volume = slider[0].value / 100.0;
-        DIE.play();
-        game_over();
+        // DIE.volume = slider[0].value / 100.0;
+        // DIE.play();
+        $('#die').prop("volume", slider[0].value / 100.0);
+        // COLLECT.volume = slider[0].value / 100.0;
+        $('#die')[0].play();
+        setTimeout(game_over(), 2000);
+        // game_over();
       } else {
         rocket.shield = false;
         rocket.img.attr("src", "src/player.gif");
