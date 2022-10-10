@@ -1,0 +1,245 @@
+/* Main Containers */
+body, button {
+  font-family: VT323;
+}
+button {
+  font-size: xx-large;
+}
+
+.outer-container {
+  height: 720px;
+  width: 1280px;
+  background: #eee;
+  border: 5px solid gainsboro;
+}
+
+.game-window {
+  height: 720px;
+  width: 1280px;
+  float: left;
+  position: relative;
+}
+  
+/* Game Section --- Right Section */
+
+#actual_game{
+    height: 720px;
+    width: 1280px;
+    background-color: white;
+    z-index: 10;
+    right: 0px;
+    top: 0px;
+
+}
+
+#game_right_section {
+    height: 600px;
+    width: 320px;
+    position: absolute;
+    left: 960px;
+    top: 0px;
+    color: black;
+    z-index: 1;
+}
+
+#scoreword, #danger, #level {
+  text-align:center;
+  font-size: 60px;
+}
+
+#score_num, #danger_num, #level_num {
+  text-align: center;
+  font-size: 40px;
+  color: darkblue;
+}
+
+#player {
+  position: absolute;
+  width: 62px;
+  left: 600px;
+  top: 300px;
+  z-index: 9;
+}
+
+.curAstroid {
+  position: absolute;
+  height: 42px;
+  width: 42px;
+  z-index: 9;
+  right: 0px;
+  top: 0px;
+}
+
+.curAstroid img{
+  position: relative;
+  z-index: 10;
+  height: 80px;
+  left: -17px;
+  top: -15px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+/* Add your styling here */
+#landing_page {
+  height: 720px;
+  width: 1280px;
+  background-image: url("../src/frontpage_background.jpg");
+}
+
+#header {
+  width: 100%;
+  height: 100px;
+  background-color: darkslateblue;
+  border-bottom: 6px;
+  border-bottom-style: groove;
+  font-size: 100px;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: space-between
+}
+
+#header_buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#header_buttons button {
+  width: 200px;
+  height: 100px;
+  background-color: darkslateblue;
+  font-size: 40px;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#play_game {
+  position: absolute;
+  top: 30%
+}
+
+#settings {
+  position:absolute;
+  bottom: 30%;
+}
+
+#setting_page {
+  position: absolute;
+  top: 1%;
+  left: 340px;
+  border: 5px groove;
+  width: 600px;
+  height: 690px;
+  background-color: darkslateblue;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#difficulty {
+  margin-top: -15%;
+}
+
+#setting_page button {
+  width: 180px;
+  height: 100px;
+  background-color: purple;
+  border-color: black;
+  font-size: 40px;
+  color: white;
+}
+
+#myRange {
+  background: #d3d3d3;
+  outline: none;
+  transition: opacity .2s;
+  opacity: 0.7;
+  width: 100%;
+  height: 25px;
+}
+
+.slidecontainer {
+  font-size: 30px;
+  width: 80%;
+}
+
+#close {
+  margin-bottom: 10%;
+}
+
+#over_page {
+  position: absolute;
+  top: 42%;
+  left: 420px;
+  width: 440px;
+  height: 200px;
+  background-color: darkslateblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  color: white;
+  font-size: large;
+}
+
+#tutorial_page {
+  position: absolute;
+  top: 0;
+  background-color: gainsboro;
+  font-size: 50px;
+  font-weight: lighter;
+  height: 720px;
+  width: 1280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#tutorial_title {
+  font-size: 75px;
+}
+
+#tutorial_page button {
+  width: 200px;
+  height: 75px;
+  margin-bottom: 2%;
+}
+
+#tutorial_page img {
+  width: 100px;
+  height: 100px;
+}
+
+#get_ready_window {
+  position: absolute;
+  top: 30%;
+  align-items: center;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 50px;
+  color: black;
+  left: 340px;
+}
+
+#get_ready_window img{
+  position: relative;
+  margin-top: 15%;
+  margin-bottom: 15%;
+}
+
+#get_ready_title {
+  font-size: 75px;
+}
+
